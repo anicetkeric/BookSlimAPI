@@ -35,7 +35,8 @@ First you need to create a PHP Project. You have to create it in the root direct
 In my case **C:\wamp\www\BookSlimAPI**.
 
 ## Project structure
-cap
+
+![capture 1](https://github.com/anicetkeric/BookSlimAPI/blob/master/screen/1.PNG)
 
 * Data: class representative our book table
 * libs : All the third party libraries goes here. In our case we place Slim library here
@@ -52,4 +53,26 @@ cap
 |Listing all books      | GET      |  http://localhost/BookSlimAPI/output/book | none
 | Listing single book | GET     |   http://localhost/BookSlimAPI/output/book/{book_id} | none
 | Deleting a book |POST      |   http://localhost/BookSlimAPI/output/bookdelete | id
-| Updating a book | POST     |   http://localhost/BookSlimAPI/output/bookupdate | id, title, author, price
+| Updating a book | POST     |   http://localhost/BookSlimAPI/output/bookupdate | id, title, author, price|
+
+in my case i change the apache port as 1180
+
+* http://localhost:1180/BookSlimAPI/output/bookinsert
+
+![capture 2](https://github.com/anicetkeric/BookSlimAPI/blob/master/screen/2.PNG)
+
+
+* http://localhost:1180/BookSlimAPI/output/bookupdate
+
+![capture 3](https://github.com/anicetkeric/BookSlimAPI/blob/master/screen/3.PNG)
+
+
+* http://localhost:1180/BookSlimAPI/output/book
+
+![capture 4](https://github.com/anicetkeric/BookSlimAPI/blob/master/screen/4.PNG)
+
+
+
+* http://localhost:1180/BookSlimAPI/output/book/14
+
+![capture 5](https://github.com/anicetkeric/BookSlimAPI/blob/master/screen/5.PNG)
