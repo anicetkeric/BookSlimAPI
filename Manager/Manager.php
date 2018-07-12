@@ -5,7 +5,7 @@
  * User: ANICET ERIC KOUAME
  * Date: 20/01/2017
  * Time: 09:25
- * Copyright 2017 @ EnCode Technologies & Conseils
+ * Copyright 2017 @ 
  *
  * This file is part of CORE API.
  *
