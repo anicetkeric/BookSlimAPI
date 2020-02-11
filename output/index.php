@@ -4,6 +4,7 @@
 require_once '../Manager/DataManager.php';
 require_once '../Data/Data.php';
 require '.././libs/Slim/Slim.php';
+require_once '../shared/Common.php';
 
 \Slim\Slim::registerAutoloader();
 
@@ -15,9 +16,9 @@ $app = new \Slim\Slim();
  * Method: POST
  * */
 $app->post('/bookinsert', function () use ($app) {
-    verifyRequiredParams(array('title', 'author', 'price'));
+    Common::verifyRequiredParams(array('title', 'author', 'price'));
     $response = array();
-    $book=new Data();
+    $book = new Data();
     $book->setTitle($app->request->post('title'));
     $book->setAuthor($app->request->post('author'));
     $book->setPrice($app->request->post('price'));
@@ -28,11 +29,11 @@ $app->post('/bookinsert', function () use ($app) {
     if ($res > 0) {
         $response["error"] = false;
         $response["message"] = "book added";
-        echoResponse(201, $response);
+        Common::echoResponse(201, $response);
     } else{
         $response["error"] = true;
         $response["message"] = "Oops! An error occurred while registereing";
-        echoResponse(200, $response);
+        Common::echoResponse(200, $response);
     }
 });
 
@@ -43,7 +44,7 @@ $app->post('/bookinsert', function () use ($app) {
  * Method: POST
  * */
 $app->post('/bookupdate', function () use ($app) {
-    verifyRequiredParams(array('id','title', 'author', 'price'));
+    Common::verifyRequiredParams(array('id','title', 'author', 'price'));
     $response = array();
     $book=new Data();
     $book->setId($app->request->post('id'));
@@ -60,11 +61,11 @@ $app->post('/bookupdate', function () use ($app) {
         $response["error"] = false;
         $response["message"] = "book updated";
         array_push($response['books'],$res);
-        echoResponse(201, $response);
+        Common::echoResponse(201, $response);
     } else{
         $response["error"] = true;
         $response["message"] = "Oops! An error occurred while update";
-        echoResponse(200, $response);
+        Common::echoResponse(200, $response);
     }
 });
 
@@ -75,7 +76,7 @@ $app->post('/bookupdate', function () use ($app) {
  * Method: POST
  * */
 $app->post('/bookdelete', function () use ($app) {
-    verifyRequiredParams(array('id'));
+    Common::verifyRequiredParams(array('id'));
     $response = array();
 
     $db = new DataManager();
@@ -85,11 +86,11 @@ $app->post('/bookdelete', function () use ($app) {
     if ($res>0) {
         $response["error"] = false;
         $response["message"] = "book deleted";
-        echoResponse(201, $response);
+        Common::echoResponse(201, $response);
     } else{
         $response["error"] = true;
         $response["message"] = "Oops! An error occurred while delete";
-        echoResponse(200, $response);
+        Common::echoResponse(200, $response);
     }
 });
 
@@ -107,7 +108,6 @@ $app->get('/book', function() use ($app){
     $response['error'] = false;
     $response['books'] = array();
 
-
     if($result){
         $response['message'] = "success";
         array_push($response['books'],$result);
@@ -115,8 +115,8 @@ $app->get('/book', function() use ($app){
         $response['error'] = true;
         $response['message'] = "Could not submit assignment";
     }
-
-    echoResponse(200,$response);
+  
+    Common::echoResponse(200,$response);
 });
 
 
@@ -142,45 +142,10 @@ $app->get('/book/:id', function($bookid) use ($app){
         $response['message'] = "Could not submit assignment";
     }
 
-    echoResponse(200,$response);
+    Common::echoResponse(200,$response);
 });
 
-function echoResponse($status_code, $response)
-{
-    $app = \Slim\Slim::getInstance();
-    $app->status($status_code);
-    $app->contentType('application/json');
-    echo json_encode($response);
-}
 
-
-function verifyRequiredParams($required_fields)
-{
-    $error = false;
-    $error_fields = "";
-    $request_params = $_REQUEST;
-
-    if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
-        $app = \Slim\Slim::getInstance();
-        parse_str($app->request()->getBody(), $request_params);
-    }
-
-    foreach ($required_fields as $field) {
-        if (!isset($request_params[$field]) || strlen(trim($request_params[$field])) <= 0) {
-            $error = true;
-            $error_fields .= $field . ', ';
-        }
-    }
-
-    if ($error) {
-        $response = array();
-        $app = \Slim\Slim::getInstance();
-        $response["error"] = true;
-        $response["message"] = 'Required field(s) ' . substr($error_fields, 0, -2) . ' is missing or empty';
-        echoResponse(400, $response);
-        $app->stop();
-    }
-}
 
 
 $app->run();
