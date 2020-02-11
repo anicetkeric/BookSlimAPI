@@ -49,11 +49,11 @@ In my case **C:\wamp\www\BookSlimAPI**.
 
 | Description        | Method |Route  | Params
 | ------------- |:-------------:| -----|-----|
-| Creating a new book    | POST |http://localhost/BookSlimAPI/output/bookinsert |title, author, price |
-|Listing all books      | GET      |  http://localhost/BookSlimAPI/output/book | none
+| Creating a new book    | POST |http://localhost/BookSlimAPI/output/book |title, author, price |
+|Listing all books      | GET      |  http://localhost/BookSlimAPI/output/books | none
 | Listing single book | GET     |   http://localhost/BookSlimAPI/output/book/{book_id} | none
-| Deleting a book |POST      |   http://localhost/BookSlimAPI/output/bookdelete | id
-| Updating a book | POST     |   http://localhost/BookSlimAPI/output/bookupdate | id, title, author, price|
+| Deleting a book |DELETE      |   http://localhost/BookSlimAPI/output/book | id
+| Updating a book | PUT     |   http://localhost/BookSlimAPI/output/book/{book_id} | id, title, author, price|
 
 in my case i change the apache port as 1180
 
