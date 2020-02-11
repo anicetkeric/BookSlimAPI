@@ -11,59 +11,60 @@ require_once '../shared/Common.php';
 $app = new \Slim\Slim();
 
 /* *
- * URL: http://localhost/BookSlimAPI/output/bookinsert
+ * URL: http://localhost/BookSlimAPI/output/book
  * Parameters: title, author, price
  * Method: POST
  * */
-$app->post('/bookinsert', function () use ($app) {
-    Common::verifyRequiredParams(array('title', 'author', 'price'));
+$app->post('/book', function () use ($app) {
+    $data = json_decode($app->request->getBody());
     $response = array();
     $book = new Data();
-    $book->setTitle($app->request->post('title'));
-    $book->setAuthor($app->request->post('author'));
-    $book->setPrice($app->request->post('price'));
+    $book->setTitle($data->title);
+    $book->setAuthor($data->author);
+    $book->setPrice($data->price);
 
     $db = new DataManager();
     $res = $db->insertBook($book);
 
     if ($res > 0) {
-        $response["error"] = false;
+        $response["is_success"] = true;
         $response["message"] = "book added";
         Common::echoResponse(201, $response);
     } else{
-        $response["error"] = true;
+        $response["is_success"] = false;
         $response["message"] = "Oops! An error occurred while registereing";
-        Common::echoResponse(200, $response);
+        Common::echoResponse(400, $response);
     }
 });
 
 
 /* *
- * URL: http://localhost/BookSlimAPI/output/bookupdate
+ * URL: http://localhost/BookSlimAPI/output/book/<book_id>
  * Parameters: id, title, author, price
- * Method: POST
+ * Method: PUT
  * */
-$app->post('/bookupdate', function () use ($app) {
-    Common::verifyRequiredParams(array('id','title', 'author', 'price'));
+$app->put('/book/:id', function($bookid) use ($app){
+
+    $data = json_decode($app->request->getBody());
     $response = array();
     $book=new Data();
-    $book->setId($app->request->post('id'));
-    $book->setTitle($app->request->post('title'));
-    $book->setAuthor($app->request->post('author'));
-    $book->setPrice($app->request->post('price'));
+    $book->setId($bookid);
+    $book->setTitle($data->title);
+    $book->setAuthor($data->author);
+    $book->setPrice($data->price);
 
     $db = new DataManager();
     $res = $db->updateBook($book);
 
-    $response['books'] = array();
+    $response['data'] = array();
 
     if ($res) {
-        $response["error"] = false;
+        $response["is_success"] = true;
         $response["message"] = "book updated";
-        array_push($response['books'],$res);
+        $response['data'] = $res;
         Common::echoResponse(201, $response);
     } else{
-        $response["error"] = true;
+        $response["is_success"] = false;
         $response["message"] = "Oops! An error occurred while update";
         Common::echoResponse(200, $response);
     }
@@ -71,11 +72,11 @@ $app->post('/bookupdate', function () use ($app) {
 
 
 /* *
- * URL: http://localhost/BookSlimAPI/output/bookdelete
+ * URL: http://localhost/BookSlimAPI/output/book
  * Parameters: id
- * Method: POST
+ * Method: DELETE
  * */
-$app->post('/bookdelete', function () use ($app) {
+$app->delete('/book', function () use ($app) {
     Common::verifyRequiredParams(array('id'));
     $response = array();
 
@@ -83,37 +84,37 @@ $app->post('/bookdelete', function () use ($app) {
     $res = $db->deleteBook($app->request->post('id'));
 
 
-    if ($res>0) {
-        $response["error"] = false;
+    if ($res > 0) {
+        $response["is_success"] = true;
         $response["message"] = "book deleted";
-        Common::echoResponse(201, $response);
+        Common::echoResponse(204, $response);
     } else{
-        $response["error"] = true;
+        $response["is_success"] = false;
         $response["message"] = "Oops! An error occurred while delete";
-        Common::echoResponse(200, $response);
+        Common::echoResponse(400, $response);
     }
 });
 
 /* *
- * URL: http://localhost/BookSlimAPI/output/book
+ * URL: http://localhost/BookSlimAPI/output/books
  * Parameters: none
  * Authorization: Put API Key in Request Header
  * Method: GET
  * */
-$app->get('/book', function() use ($app){
+$app->get('/books', function() use ($app){
     $db = new DataManager();
     $result = $db->GetAllbook();
 
     $response = array();
-    $response['error'] = false;
-    $response['books'] = array();
+    $response['is_success'] = true;
+    $response['data'] = null;
 
     if($result){
         $response['message'] = "success";
-        array_push($response['books'],$result);
+        $response['data'] = $result;
     }else{
-        $response['error'] = true;
-        $response['message'] = "Could not submit assignment";
+        $response['is_success'] = false;
+        $response['message'] = "Unable to get data";
     }
   
     Common::echoResponse(200,$response);
@@ -130,16 +131,16 @@ $app->get('/book/:id', function($bookid) use ($app){
     $result = $db->Getbook($bookid);
 
     $response = array();
-    $response['error'] = false;
-    $response['books'] = array();
+    $response['is_success'] = true;
+    $response['data'] = null;
 
 
     if($result){
         $response['message'] = "success";
-        array_push($response['books'],$result);
+        $response['data'] = $result;
     }else{
-        $response['error'] = true;
-        $response['message'] = "Could not submit assignment";
+        $response['is_success'] = false;
+        $response['message'] = "No data found";
     }
 
     Common::echoResponse(200,$response);
