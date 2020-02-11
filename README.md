@@ -52,7 +52,7 @@ In my case **C:\wamp\www\BookSlimAPI**.
 | Creating a new book    | POST |http://localhost/BookSlimAPI/output/book |title, author, price |
 |Listing all books      | GET      |  http://localhost/BookSlimAPI/output/books | none
 | Listing single book | GET     |   http://localhost/BookSlimAPI/output/book/{book_id} | none
-| Deleting a book |DELETE      |   http://localhost/BookSlimAPI/output/book | id
+| Deleting a book |DELETE      |   http://localhost/BookSlimAPI/output/book/{book_id} | none
 | Updating a book | PUT     |   http://localhost/BookSlimAPI/output/book/{book_id} | id, title, author, price|
 
 in my case i change the apache port as 1180
