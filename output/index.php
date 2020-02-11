@@ -72,33 +72,42 @@ $app->put('/book/:id', function($bookid) use ($app){
 
 
 /* *
- * URL: http://localhost/BookSlimAPI/output/book
- * Parameters: id
+ * URL: http://localhost/BookSlimAPI/output/book/<book_id>
+ * Parameters: none
  * Method: DELETE
  * */
-$app->delete('/book', function () use ($app) {
-    Common::verifyRequiredParams(array('id'));
+$app->delete('/book/:id', function($bookid) use ($app){
+
     $response = array();
 
     $db = new DataManager();
-    $res = $db->deleteBook($app->request->post('id'));
 
 
-    if ($res > 0) {
-        $response["is_success"] = true;
-        $response["message"] = "book deleted";
-        Common::echoResponse(204, $response);
-    } else{
+    if($db->Getbook($bookid)){
+        $res = $db->deleteBook($bookid);
+        if ($res > 0) {
+            $response["is_success"] = true;
+            $response["message"] = "book deleted";
+            Common::echoResponse(200, $response);
+        } else{
+            $response["is_success"] = false;
+            $response["message"] = "Oops! An error occurred while delete";
+            Common::echoResponse(400, $response);
+        }
+    }else{
         $response["is_success"] = false;
-        $response["message"] = "Oops! An error occurred while delete";
-        Common::echoResponse(400, $response);
+        $response['message'] = "No data found";
+        Common::echoResponse(404, $response);
     }
+
+
+
+
 });
 
 /* *
  * URL: http://localhost/BookSlimAPI/output/books
  * Parameters: none
- * Authorization: Put API Key in Request Header
  * Method: GET
  * */
 $app->get('/books', function() use ($app){
