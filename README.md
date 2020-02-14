@@ -49,30 +49,30 @@ In my case **C:\wamp\www\BookSlimAPI**.
 
 | Description        | Method |Route  | Params
 | ------------- |:-------------:| -----|-----|
-| Creating a new book    | POST |http://localhost/BookSlimAPI/output/book |title, author, price |
-|Listing all books      | GET      |  http://localhost/BookSlimAPI/output/books | none
-| Listing single book | GET     |   http://localhost/BookSlimAPI/output/book/{book_id} | none
-| Deleting a book |DELETE      |   http://localhost/BookSlimAPI/output/book/{book_id} | none
-| Updating a book | PUT     |   http://localhost/BookSlimAPI/output/book/{book_id} | id, title, author, price|
+| Creating a new book    | POST |http://localhost/BookSlimAPI/api/book |title, author, price |
+|Listing all books      | GET      |  http://localhost/BookSlimAPI/api/books | none
+| Listing single book | GET     |   http://localhost/BookSlimAPI/api/book/{book_id} | none
+| Deleting a book |DELETE      |   http://localhost/BookSlimAPI/api/book/{book_id} | none
+| Updating a book | PUT     |   http://localhost/BookSlimAPI/api/book/{book_id} | id, title, author, price|
 
 in my case i change the apache port as 1180
 
-* http://localhost:1180/BookSlimAPI/output/bookinsert
+* http://localhost:1180/BookSlimAPI/api/book
 
 ![capture 2](https://github.com/anicetkeric/BookSlimAPI/blob/master/screen/2.PNG)
 
 
-* http://localhost:1180/BookSlimAPI/output/bookupdate
+* http://localhost:1180/BookSlimAPI/api/book/{book_id}
 
 ![capture 3](https://github.com/anicetkeric/BookSlimAPI/blob/master/screen/3.PNG)
 
 
-* http://localhost:1180/BookSlimAPI/output/book
+* http://localhost:1180/BookSlimAPI/api/book
 
 ![capture 4](https://github.com/anicetkeric/BookSlimAPI/blob/master/screen/4.PNG)
 
 
 
-* http://localhost:1180/BookSlimAPI/output/book/14
+* http://localhost:1180/BookSlimAPI/api/book/14
 
 ![capture 5](https://github.com/anicetkeric/BookSlimAPI/blob/master/screen/5.PNG)
