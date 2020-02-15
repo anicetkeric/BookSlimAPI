@@ -55,7 +55,7 @@ In my case **C:\wamp\www\BookSlimAPI**.
 | Deleting a book |DELETE      |   http://localhost/BookSlimAPI/api/book/{book_id} | none
 | Updating a book | PUT     |   http://localhost/BookSlimAPI/api/book/{book_id} | id, title, author, price|
 
-in my case i change the apache port as 1180
+
 
 * http://localhost:1180/BookSlimAPI/api/book
 
