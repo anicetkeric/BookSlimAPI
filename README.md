@@ -57,7 +57,7 @@ In my case **C:\wamp\www\BookSlimAPI**.
 
 
 
-* http://localhost:1180/BookSlimAPI/api/book
+* http://localhost/BookSlimAPI/api/book
 
 ![capture 2](https://github.com/anicetkeric/BookSlimAPI/blob/master/screen/2.PNG)
 
@@ -73,6 +73,6 @@ In my case **C:\wamp\www\BookSlimAPI**.
 
 
 
-* http://localhost:1180/BookSlimAPI/api/book/14
+* http://localhost:1180/BookSlimAPI/api/book/1
 
 ![capture 5](https://github.com/anicetkeric/BookSlimAPI/blob/master/screen/5.PNG)

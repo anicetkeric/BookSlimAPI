@@ -11,8 +11,8 @@ require_once '../shared/Common.php';
 $app = new \Slim\Slim();
 
 /* *
- * URL: http://localhost/BookSlimAPI/output/book
- * Parameters: title, author, price
+ * URL: http://localhost/BookSlimAPI/api/book
+ * Parameters: JSON (title, author, price)
  * Method: POST
  * */
 $app->post('/book', function () use ($app) {
@@ -39,8 +39,8 @@ $app->post('/book', function () use ($app) {
 
 
 /* *
- * URL: http://localhost/BookSlimAPI/output/book/<book_id>
- * Parameters: id, title, author, price
+ * URL: http://localhost/BookSlimAPI/api/book/<book_id>
+ * Parameters: JSON (title, author, price)
  * Method: PUT
  * */
 $app->put('/book/:id', function($bookid) use ($app){
@@ -72,7 +72,7 @@ $app->put('/book/:id', function($bookid) use ($app){
 
 
 /* *
- * URL: http://localhost/BookSlimAPI/output/book/<book_id>
+ * URL: http://localhost/BookSlimAPI/api/book/<book_id>
  * Parameters: none
  * Method: DELETE
  * */
@@ -106,7 +106,7 @@ $app->delete('/book/:id', function($bookid) use ($app){
 });
 
 /* *
- * URL: http://localhost/BookSlimAPI/output/books
+ * URL: http://localhost/BookSlimAPI/api/books
  * Parameters: none
  * Method: GET
  * */
@@ -131,7 +131,7 @@ $app->get('/books', function() use ($app){
 
 
 /* *
- * URL: http://localhost/BookSlimAPI/output/book/<book_id>
+ * URL: http://localhost/BookSlimAPI/api/book/<book_id>
  * Parameters: none
  * Method: GET
  * */
